@@ -1,9 +1,17 @@
-OBJECTS = UseComplexe.o Complexe.o
-CC = gcc
-CFLAGS = -Wall -g
-UseComplexe : $(OBJETS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o UseComplexe -lm
-UseComplexe.o : UseComplexe.c Complexe.h
-	$(CC) $(CFLAGS) -c UseComplexe.c
+
+
+all : run clean
+
+run: $(APPLI)
+	./$(APPLI)
+
+$(APPLI) : $(APPLI).o Complexe.o
+	gcc -Wall $(APPLI).o Complexe.o -o $(APPLI) -lm
+$(APPLI).o : $(APPLI).c Complexe.h
+	gcc -Wall -c $(APPLI).c
 Complexe.o : Complexe.c Complexe.h
-	$(CC) $(CFLAGS) -c Complexe.c
+	gcc -Wall -c Complexe.c
+#suppression des fichiers objet
+clean : $(APPLI)
+	rm -f *.o
+	
